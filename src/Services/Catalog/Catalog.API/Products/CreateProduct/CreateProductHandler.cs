@@ -1,5 +1,7 @@
-﻿using BuildingBlocks.CQRS;
+﻿using System.Diagnostics.SymbolStore;
+using BuildingBlocks.CQRS;
 using Catalog.API.Models;
+using Marten;
 using MediatR;
 
 namespace Catalog.API.Products.CreateProduct
@@ -13,7 +15,7 @@ namespace Catalog.API.Products.CreateProduct
     public record CreateProductResult(Guid Id);
 
     // CreateProductHandler is a class that contains the logic to create a product.
-    internal class CreateProductCommandHandler
+    internal class CreateProductCommandHandler(IDocumentSession session)
         : ICommandHandler<CreateProductCommand, CreateProductResult>
     {
         // Handle is a method that contains the logic to create a product.
