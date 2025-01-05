@@ -7,6 +7,10 @@ builder.Services.AddMediatR(config =>
 {
     config.RegisterServicesFromAssembly(typeof(Program).Assembly);
 });
+builder.Services.AddMarten(options =>
+{
+    options.Connection(builder.Configuration.GetConnectionString("Default")!);
+}).UseLightweightSessions();
 
 // app is an instance of WebApplication created by the WebApplicationBuilder.
 var app = builder.Build();

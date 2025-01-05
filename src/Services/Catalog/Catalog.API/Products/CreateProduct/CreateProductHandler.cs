@@ -1,10 +1,4 @@
-﻿using System.Diagnostics.SymbolStore;
-using BuildingBlocks.CQRS;
-using Catalog.API.Models;
-using Marten;
-using MediatR;
-
-namespace Catalog.API.Products.CreateProduct
+﻿namespace Catalog.API.Products.CreateProduct
 {
 
     // CreateProductCommand is a record that represents the data that the client sends to the server to create a product.
@@ -38,7 +32,8 @@ namespace Catalog.API.Products.CreateProduct
             };
 
             // 2. Save the product to the database.
-            // Skip this step for now.
+            session.Store(product);
+            await session.SaveChangesAsync(cancellationToken);
 
             // 3. Return the product id.
             //return Task.FromResult(new CreateProductResult(product.Id));
