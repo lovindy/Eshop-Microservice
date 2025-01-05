@@ -9,7 +9,7 @@ builder.Services.AddMediatR(config =>
 });
 builder.Services.AddMarten(options =>
 {
-    options.Connection(builder.Configuration.GetConnectionString("Default")!);
+    options.Connection(builder.Configuration.GetConnectionString("Database")!);
 }).UseLightweightSessions();
 
 // app is an instance of WebApplication created by the WebApplicationBuilder.
