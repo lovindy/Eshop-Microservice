@@ -1,4 +1,6 @@
 ﻿
+using Catalog.API.Products.CreateProduct;
+
 namespace Catalog.API.Products.GetProducts
 {
     //public record GetProductsRequest;
@@ -13,11 +15,18 @@ namespace Catalog.API.Products.GetProducts
             {
                 // Send the GetProductsQuery record to the GetProductsQueryHandler.
                 var result = await sender.Send(new GetProductsQuery());
+
                 // Map the GetProductsResult record to the HTTP response.
-                var response = new GetProductsResponse(result.Products);
+                var response = result.Adapt<GetProductsResponse>();
+
                 // Return the HTTP response.
                 return Results.Ok(response);
-            });
+            })
+            .WithName("GetProduct")
+            .Produces<GetProductsResponse>(StatusCodes.Status200OK)
+            .ProducesProblem(StatusCodes.Status400BadRequest)
+            .WithSummary("Get all products.")
+            .WithDescription("Get all products.");
         }
     }
 }
