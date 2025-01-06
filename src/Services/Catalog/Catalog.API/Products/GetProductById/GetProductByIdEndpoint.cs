@@ -1,9 +1,7 @@
-﻿
-using Catalog.API.Products.GetProductById;
+﻿using Catalog.API.Products.GetProductById;
 
 namespace Catalog.API.Products.NewFolder
 {
-
     //public record GetProductByIdRequest();
     public record GetProductByIdResponse(Product Product);
 
@@ -12,10 +10,10 @@ namespace Catalog.API.Products.NewFolder
         public void AddRoutes(IEndpointRouteBuilder app)
         {
             // Define the endpoint to get a product by id.
-            app.MapGet("/products/{id}", async (ISender sender, string id) =>
+            app.MapGet("/products/{id}", async (Guid id, ISender sender) =>
             {
                 // Send the GetProductsQuery record to the GetProductsQueryHandler.
-                var result = await sender.Send(new GetProductsQuery { Id = id });
+                var result = await sender.Send(new GetProductByIdQuery(id));
 
                 // Map the GetProductsResult record to the HTTP response.
                 var response = result.Adapt<GetProductByIdResponse>();
