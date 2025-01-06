@@ -11,13 +11,6 @@
 	</PropertyGroup>
 
 	<ItemGroup>
-		<Compile Remove="NewFolder\**" />
-		<Content Remove="NewFolder\**" />
-		<EmbeddedResource Remove="NewFolder\**" />
-		<None Remove="NewFolder\**" />
-	</ItemGroup>
-
-	<ItemGroup>
 		<PackageReference Include="Carter" Version="8.0.0" />
 		<PackageReference Include="Marten" Version="6.4.1" />
 		<PackageReference Include="Microsoft.VisualStudio.Azure.Containers.Tools.Targets" Version="1.21.0" />
