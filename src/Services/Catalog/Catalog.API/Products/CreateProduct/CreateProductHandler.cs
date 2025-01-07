@@ -1,6 +1,4 @@
-﻿using FluentValidation;
-
-namespace Catalog.API.Products.CreateProduct
+﻿namespace Catalog.API.Products.CreateProduct
 {
 
     // CreateProductCommand is a record that represents the data that the client sends to the server to create a product.
@@ -14,7 +12,6 @@ namespace Catalog.API.Products.CreateProduct
     {
         public CreateProductCommandValidator()
         {
-
             // RuleFor is a method that defines a rule for a property.
             // 1. The Name property should not be empty.
             // 2. The Description property should not be empty.
@@ -31,7 +28,8 @@ namespace Catalog.API.Products.CreateProduct
     }
 
     // CreateProductHandler is a class that contains the logic to create a product.
-    internal class CreateProductCommandHandler(IDocumentSession session)
+    internal class CreateProductCommandHandler
+        (IDocumentSession session, IValidator<CreateProductCommand> validator)
         : ICommandHandler<CreateProductCommand, CreateProductResult>
     {
         // Handle is a method that contains the logic to create a product.
@@ -41,6 +39,14 @@ namespace Catalog.API.Products.CreateProduct
             // 1. Create a new product.
             // 2. Save the product to the database.
             // 3. Return the product id.
+
+            // 1. Validate the command.
+            var validationResult = await validator.ValidateAsync(command, cancellationToken);
+            var errors = validationResult.Errors.Select(x => x.ErrorMessage).ToList();
+            if (errors.Any())
+            {
+                throw new ValidationException(errors.FirstOrDefault());
+            }
 
             // 1. Create a new product.
             var product = new Product
