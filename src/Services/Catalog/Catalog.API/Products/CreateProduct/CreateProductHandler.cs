@@ -29,7 +29,7 @@
 
     // CreateProductHandler is a class that contains the logic to create a product.
     internal class CreateProductCommandHandler
-        (IDocumentSession session, IValidator<CreateProductCommand> validator)
+        (IDocumentSession session, ILogger<CreateProductCommandHandler> logger)
         : ICommandHandler<CreateProductCommand, CreateProductResult>
     {
         // Handle is a method that contains the logic to create a product.
@@ -40,13 +40,8 @@
             // 2. Save the product to the database.
             // 3. Return the product id.
 
-            // 1. Validate the command.
-            var validationResult = await validator.ValidateAsync(command, cancellationToken);
-            var errors = validationResult.Errors.Select(x => x.ErrorMessage).ToList();
-            if (errors.Any())
-            {
-                throw new ValidationException(errors.FirstOrDefault());
-            }
+            // logger.LogInformation is a method that logs an informational message.
+            logger.LogInformation("Creating a new product...");
 
             // 1. Create a new product.
             var product = new Product
