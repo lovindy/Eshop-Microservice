@@ -1,4 +1,6 @@
-﻿namespace Catalog.API.Products.CreateProduct
+﻿using FluentValidation;
+
+namespace Catalog.API.Products.CreateProduct
 {
 
     // CreateProductCommand is a record that represents the data that the client sends to the server to create a product.
@@ -7,6 +9,26 @@
 
     // CreateProductResult is a record that represents the data that the server sends to the client after creating a product.
     public record CreateProductResult(Guid Id);
+
+    public class CreateProductCommandValidator : AbstractValidator<CreateProductCommand>
+    {
+        public CreateProductCommandValidator()
+        {
+
+            // RuleFor is a method that defines a rule for a property.
+            // 1. The Name property should not be empty.
+            // 2. The Description property should not be empty.
+            // 3. The ImageFile property should not be empty.
+            // 4. The Price property should be greater than 0.
+            // 5. The Category property should not be empty.
+
+            RuleFor(x => x.Name).NotEmpty().WithMessage("Name is required.");
+            RuleFor(x => x.Description).NotEmpty().WithMessage("Description is required.");
+            RuleFor(x => x.ImageFile).NotEmpty().WithMessage("ImageFile is required.");
+            RuleFor(x => x.Price).GreaterThan(0).WithMessage("Price should be greater than 0.");
+            RuleFor(x => x.Category).NotEmpty().WithMessage("Category is required.");
+        }
+    }
 
     // CreateProductHandler is a class that contains the logic to create a product.
     internal class CreateProductCommandHandler(IDocumentSession session)
