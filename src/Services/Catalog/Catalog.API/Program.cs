@@ -7,6 +7,7 @@ var builder = WebApplication.CreateBuilder(args);
 // Add services to the container.
 builder.Services.AddCarter();
 
+// assembly is an instance of Assembly that represents the current assembly.
 var assembly = typeof(Program).Assembly;
 
 // MediatR is a library that simplifies the implementation of the mediator pattern.
