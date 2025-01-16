@@ -24,7 +24,7 @@
         {
             new Product
             {
-                Id = new Guid("b1f264f6-4d07-49a3-9129-7b25db961a2b"),
+                Id = new Guid("b1f264f6-4d07-49a3-9129-7b25da961a4a"),
                 Name = "Wireless Mouse",
                 Description = "Ergonomic wireless mouse with customizable buttons.",
                 ImageFile = "wireless_mouse.jpg",
@@ -33,6 +33,7 @@
             },
             new Product
             {
+                Id = new Guid("b1f762a6-4d07-49a3-9129-7b25da961a4a"),
                 Name = "Standing Desk",
                 Description = "Height-adjustable standing desk with a spacious work surface.",
                 ImageFile = "standing_desk.jpg",
