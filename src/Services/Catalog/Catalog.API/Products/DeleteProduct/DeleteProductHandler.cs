@@ -29,7 +29,7 @@
             {
                 // Log the error.
                 logger.LogError("Product with id {Id} not found", command.Id);
-                throw new ProductNotFoundException();
+                throw new ProductNotFoundException(command.Id);
             }
 
             // Delete the product from the database.

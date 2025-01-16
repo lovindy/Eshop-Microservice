@@ -21,7 +21,7 @@
             if (product is null)
             {
                 // Log that the product was not found.
-                throw new ProductNotFoundException();
+                throw new ProductNotFoundException(query.id);
             }
 
             // Return the product.
