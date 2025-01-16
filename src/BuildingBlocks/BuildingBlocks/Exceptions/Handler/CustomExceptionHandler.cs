@@ -61,7 +61,7 @@ namespace BuildingBlocks.Exceptions.Handler
                 Title = details.Title,
                 Detail = details.Details,
                 Status = details.StatusCode,
-                Instance = httpContext.TraceIdentifier
+                Instance = httpContext.Request.Path
             };
 
             problemDetails.Extensions.Add("traceId", httpContext.TraceIdentifier);
