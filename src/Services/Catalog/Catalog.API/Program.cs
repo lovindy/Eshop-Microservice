@@ -1,6 +1,5 @@
 // builder is an instance of WebApplicationBuilder created by the WebApplication.CreateBuilder method.
-using Microsoft.AspNetCore.Diagnostics;
-using static System.Net.Mime.MediaTypeNames;
+
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -26,6 +25,9 @@ builder.Services.AddMarten(options =>
     options.Connection(builder.Configuration.GetConnectionString("Database")!);
 }).UseLightweightSessions();
 
+// Add a global exception handler.
+builder.Services.AddExceptionHandler<CustomExceptionHandler>();
+
 // app is an instance of WebApplication created by the WebApplicationBuilder.
 var app = builder.Build();
 
@@ -34,27 +36,7 @@ var app = builder.Build();
 app.MapCarter();
 
 // Global handlers for unhandled exceptions.
-app.UseExceptionHandler(exceptionHandlerApp =>
-{
-    exceptionHandlerApp.Run(async context =>
-    {
-        context.Response.StatusCode = StatusCodes.Status500InternalServerError;
-        context.Response.ContentType = Application.Json;
+app.UseExceptionHandler(options => { });
 
-        var exceptionHandlerPathFeature = context.Features.Get<IExceptionHandlerPathFeature>();
-
-        var isDevelopment = builder.Environment.IsDevelopment();
-        var errorDetails = new
-        {
-            Error = "An unexpected error occurred.",
-            Path = exceptionHandlerPathFeature?.Path,
-            ExceptionMessage = isDevelopment ? exceptionHandlerPathFeature?.Error.Message : null,
-            StackTrace = isDevelopment ? exceptionHandlerPathFeature?.Error.StackTrace : null
-        };
-
-        var errorJson = System.Text.Json.JsonSerializer.Serialize(errorDetails);
-        await context.Response.WriteAsync(errorJson);
-    });
-});
-
+// Run the application.
 app.Run();
