@@ -1,6 +1,4 @@
 // builder is an instance of WebApplicationBuilder created by the WebApplication.CreateBuilder method.
-
-
 var builder = WebApplication.CreateBuilder(args);
 
 // Add services to the container.
@@ -25,6 +23,11 @@ builder.Services.AddMarten(options =>
 {
     options.Connection(builder.Configuration.GetConnectionString("Database")!);
 }).UseLightweightSessions();
+
+if (builder.Environment.IsDevelopment())
+{
+    builder.Services.InitializeMartenWith<CatalogInitialData>();
+}
 
 // Add a global exception handler.
 builder.Services.AddExceptionHandler<CustomExceptionHandler>();
