@@ -71,8 +71,8 @@ namespace BuildingBlocks.Exceptions.Handler
                 problemDetails.Extensions.Add("errors", validationException.Errors);
             }
 
-            await httpContext.Response.WriteAsJsonAsync(problemDetails);
-            s
+            await httpContext.Response.WriteAsJsonAsync(problemDetails, cancellationToken: cancellationToken);
+            return true;
         }
     }
 }
