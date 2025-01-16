@@ -19,17 +19,13 @@
     }
 
     internal class UpdateProductCommandHandler
-        (IDocumentSession session, ILogger<UpdateProductCommandHandler> logger)
+        (IDocumentSession session)
         : ICommandHandler<UpdateProductCommand, UpdateProductResult>
     {
         public async Task<UpdateProductResult> Handle(UpdateProductCommand command, CancellationToken cancellationToken)
         {
 
             // TODO: Implement the logic to update a product.
-
-            // Log the update operation.
-            logger.LogInformation("Updating product with id {Id}", command.Id);
-
             // Load the product from the database.
             var product = await session.LoadAsync<Product>(command.Id, cancellationToken);
 
@@ -37,7 +33,6 @@
             if (product is null)
             {
                 // Log the error.
-                logger.LogError("Product with id {Id} not found", command.Id);
                 throw new ProductNotFoundException(command.Id);
             }
 

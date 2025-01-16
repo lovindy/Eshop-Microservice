@@ -29,7 +29,7 @@
 
     // CreateProductHandler is a class that contains the logic to create a product.
     internal class CreateProductCommandHandler
-        (IDocumentSession session, ILogger<CreateProductCommandHandler> logger)
+        (IDocumentSession session)
         : ICommandHandler<CreateProductCommand, CreateProductResult>
     {
         // Handle is a method that contains the logic to create a product.
@@ -39,9 +39,6 @@
             // 1. Create a new product.
             // 2. Save the product to the database.
             // 3. Return the product id.
-
-            // logger.LogInformation is a method that logs an informational message.
-            logger.LogInformation("Creating a new product...");
 
             // 1. Create a new product.
             var product = new Product

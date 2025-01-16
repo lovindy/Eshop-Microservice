@@ -13,22 +13,18 @@
     }
 
     internal class DeleteProductCommandHandler
-        (IDocumentSession session, ILogger<DeleteProductCommandHandler> logger)
+        (IDocumentSession session)
         : ICommandHandler<DeleteProductCommand, DeleteProductResult>
     {
         public async Task<DeleteProductResult> Handle(DeleteProductCommand command, CancellationToken cancellationToken)
         {
-            // Log the delete operation.
-            logger.LogInformation("Deleting product with id {Id}", command.Id);
-
             // Load the product from the database.
             var product = await session.LoadAsync<Product>(command.Id, cancellationToken);
 
             // Check if the product exists.
             if (product is null)
             {
-                // Log the error.
-                logger.LogError("Product with id {Id} not found", command.Id);
+                // Log the error.       
                 throw new ProductNotFoundException(command.Id);
             }
 

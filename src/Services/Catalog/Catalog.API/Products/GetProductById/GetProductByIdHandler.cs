@@ -6,14 +6,11 @@
     public record GetProductByIdResult(Product Product);
 
     internal class GetProductByIdQueryHandler
-        (IDocumentSession session, ILogger<GetProductByIdQueryHandler> logger)
+        (IDocumentSession session)
         : IQueryHandler<GetProductByIdQuery, GetProductByIdResult>
     {
         public async Task<GetProductByIdResult> Handle(GetProductByIdQuery query, CancellationToken cancellationToken)
         {
-            // Log that we are getting a product from the database.
-            logger.LogInformation("Getting product from the database...");
-
             // Get the product from the database.
             var product = await session.LoadAsync<Product>(query.id, cancellationToken);
 
