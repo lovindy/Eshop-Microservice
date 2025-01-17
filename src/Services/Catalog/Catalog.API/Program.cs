@@ -32,6 +32,9 @@ if (builder.Environment.IsDevelopment())
 // Add a global exception handler.
 builder.Services.AddExceptionHandler<CustomExceptionHandler>();
 
+// Add health checks.
+builder.Services.AddHealthChecks();
+
 // app is an instance of WebApplication created by the WebApplicationBuilder.
 var app = builder.Build();
 
@@ -41,6 +44,9 @@ app.MapCarter();
 
 // Global handlers for unhandled exceptions.
 app.UseExceptionHandler(options => { });
+
+// Add health checks.
+app.UseHealthChecks("/health");
 
 // Run the application.
 app.Run();
