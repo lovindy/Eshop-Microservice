@@ -32,8 +32,9 @@ if (builder.Environment.IsDevelopment())
 // Add a global exception handler.
 builder.Services.AddExceptionHandler<CustomExceptionHandler>();
 
-// Add health checks.
-builder.Services.AddHealthChecks();
+// Add health checks for application and the database.
+builder.Services.AddHealthChecks()
+    .AddNpgSql(builder.Configuration.GetConnectionString("Database")!);
 
 // app is an instance of WebApplication created by the WebApplicationBuilder.
 var app = builder.Build();
