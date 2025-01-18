@@ -1,9 +1,8 @@
-﻿using FluentValidation;
-
+﻿
 namespace Basket.API.Basket.StoreBasket
 {
     public record StoreBasketCommand(ShoppingCart Cart) : ICommand<StoreBasketResult>;
-    public record StoreBasketResult(bool IsSuccess);
+    public record StoreBasketResult(string Username);
 
     public class StoreBasketCommandValidator : AbstractValidator<StoreBasketCommand>
     {
@@ -23,9 +22,10 @@ namespace Basket.API.Basket.StoreBasket
             ShoppingCart cart = command.Cart;
 
             // TODO:
-            // store the basket in the database
+            // store the basket in the database (use Marten upsert - if exist = update, if not = insert)
             // Update cache
 
+            return new StoreBasketResult("swn");
         }
     }
 }
