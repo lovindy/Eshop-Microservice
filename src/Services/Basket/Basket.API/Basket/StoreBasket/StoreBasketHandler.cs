@@ -14,9 +14,10 @@ namespace Basket.API.Basket.StoreBasket
         }
     }
 
-    public class StoreBasketCommandHandler : ICommandHandler<StoreBasketCommand, StoreBasketResult>
+    public class StoreBasketCommandHandler
+        : ICommandHandler<StoreBasketCommand, StoreBasketResult>
     {
-        public Task<StoreBasketResult> Handle(StoreBasketCommand request, CancellationToken cancellationToken)
+        public async Task<StoreBasketResult> Handle(StoreBasketCommand command, CancellationToken cancellationToken)
         {
             throw new NotImplementedException();
         }
