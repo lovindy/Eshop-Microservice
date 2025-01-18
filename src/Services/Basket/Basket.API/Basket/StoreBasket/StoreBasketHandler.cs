@@ -19,7 +19,13 @@ namespace Basket.API.Basket.StoreBasket
     {
         public async Task<StoreBasketResult> Handle(StoreBasketCommand command, CancellationToken cancellationToken)
         {
-            throw new NotImplementedException();
+            // Get the cart from the command
+            ShoppingCart cart = command.Cart;
+
+            // TODO:
+            // store the basket in the database
+            // Update cache
+
         }
     }
 }
