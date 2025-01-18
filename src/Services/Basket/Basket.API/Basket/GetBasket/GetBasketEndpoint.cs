@@ -8,7 +8,14 @@
     {
         public void AddRoutes(IEndpointRouteBuilder app)
         {
-            throw new NotImplementedException();
+            // Implement the GetBasket endpoint
+            app.MapGet("/basket/{userName}", async (string userName, ISender Sender) =>
+            {
+
+
+            });
+
+
         }
     }
 }
