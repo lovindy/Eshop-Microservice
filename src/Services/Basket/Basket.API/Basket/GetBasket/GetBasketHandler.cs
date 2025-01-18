@@ -9,7 +9,8 @@
         {
             // Todo: Implement the logic to get the basket from the database
             //var basket = await _repository.GetBasketAsync(query.Username);
-            throw new NotImplementedException();
+
+            return new GetBasketResult(new ShoppingCart("swn"));
         }
     }
 }
